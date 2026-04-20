@@ -1,0 +1,17 @@
+Host=KHM-UNG-ORA10.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.YNG.RN.RU <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.YNG.RN.RU&targetType=oracle_database>  
+Incident creation time=Feb 17, 2026 10:13:26 AM YEKT 
+Last updated time=Mar 2, 2026 2:50:34 AM YEKT 
+Message=Tablespace [CDS] is [98.76 percent] full <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=2E3D3190A1574A12AF6D1FBFEA17AE0E>  
+Severity=Warning 
+Incident ID=94716 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Capacity 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

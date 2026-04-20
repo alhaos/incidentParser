@@ -1,0 +1,19 @@
+Host=KHM-UNG-DB15N1.rosneft.ru 
+Target type=Database Instance 
+Target name=CDNG15.MSN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=CDNG15.MSN.SMD&targetType=oracle_database>  
+Incident creation time=Apr 16, 2026 11:01:36 AM YEKT 
+Last updated time=Apr 16, 2026 11:01:36 AM YEKT 
+Message=Total db time 637 seconds is consumed by 2 sessions blocked by session SID,SERIAL:771,7775,LOCK_TYPE:UL,PROGRAM:ORACLE.EXE (J002),MODULE:,ACTION:,MACHINE:KHM-UNG-DB15N1,OSUSER:SYSTEM,USERNAME:MVIEWADMIN. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=6B670ADBBBBF422BB534820EDAD52034>  
+Severity=Critical 
+Incident ID=99406 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Load 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

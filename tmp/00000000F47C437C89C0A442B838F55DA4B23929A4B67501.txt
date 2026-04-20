@@ -1,0 +1,19 @@
+Host=KHM-UNG-PR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=PN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=PN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Jan 29, 2026 4:20:48 PM YEKT 
+Last updated time=Jan 29, 2026 4:20:48 PM YEKT 
+Message=Status for Streams process APPLY_WELLOP_FROM_CDNG20 is DISABLED. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=9DF4E75B083E4FD085C42B3862F15125>  
+Severity=Warning 
+Incident ID=93355 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Error 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

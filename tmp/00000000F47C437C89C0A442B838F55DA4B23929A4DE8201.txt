@@ -1,0 +1,19 @@
+Host=KHM-UNG-YR01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=UN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=UN.SMD&targetType=oracle_database>  
+Incident creation time=Mar 26, 2026 10:44:52 AM YEKT 
+Last updated time=Mar 26, 2026 10:44:52 AM YEKT 
+Message=Total db time 2,600 seconds is consumed by 5 sessions blocked by session SID,SERIAL:647,28475,LOCK_TYPE:UL,PROGRAM:ORACLE.EXE (J016),MODULE:,ACTION:,MACHINE:KHM-UNG-YR01N1,OSUSER:SYSTEM,USERNAME:REFRESHER. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=97300D82C7A4423EAFDF08C6636DC787>  
+Severity=Critical 
+Incident ID=97408 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Load 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

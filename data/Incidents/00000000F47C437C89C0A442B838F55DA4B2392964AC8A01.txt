@@ -1,0 +1,19 @@
+Host=KHM-UNG-PRB01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.PR.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.PR.YNG.RN&targetType=oracle_database>  
+Incident creation time=Apr 18, 2026 6:05:27 PM YEKT 
+Last updated time=Apr 18, 2026 6:05:27 PM YEKT 
+Message=The value of Apply errors is 1 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=99A14A5BE2A84A0F9F0118E3745DA897>  
+Severity=Critical 
+Incident ID=99505 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, ME_RULE; Owner = GORBACHEVEV). 

@@ -1,0 +1,19 @@
+Host=KHM-UNG-ORA09.rosneft.ru 
+Target type=Database Instance 
+Target name=ATOL <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=ATOL&targetType=oracle_database>  
+Incident creation time=Apr 17, 2026 7:02:30 AM YEKT 
+Last updated time=Apr 17, 2026 7:02:30 AM YEKT 
+Message=Hang jobs = 1 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=A4ADC639AEBA434096565BF7CEAFD4E5>  
+Severity=Critical 
+Incident ID=99452 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, ME_RULE; Owner = GORBACHEVEV). 

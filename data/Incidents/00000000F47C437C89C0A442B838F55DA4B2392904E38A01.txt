@@ -1,0 +1,17 @@
+Host=KHM-UNG-MSR01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=MSN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=MSN.SMD&targetType=oracle_database>  
+Incident creation time=Apr 20, 2026 5:45:21 AM YEKT 
+Last updated time=Apr 20, 2026 7:15:21 AM YEKT 
+Message=Alert for Snapshot not refresh is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=B36FA39F510246BAB25F6D1CD75D9824>  
+Severity=Clear 
+Incident ID=99562 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

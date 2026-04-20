@@ -1,0 +1,19 @@
+Host=KHM-UNG-DB18N2.rosneft.ru 
+Target type=Database Instance 
+Target name=CDNG18_TEST.MSN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=CDNG18_TEST.MSN.SMD&targetType=oracle_database>  
+Incident creation time=Apr 19, 2026 4:04:38 PM YEKT 
+Last updated time=Apr 19, 2026 4:04:38 PM YEKT 
+Message=Tablespace [SYSAUX] is [93 percent] full <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=6A0A81B07E774659910AA63E6C18ADCC>  
+Severity=Warning 
+Incident ID=99546 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Capacity 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

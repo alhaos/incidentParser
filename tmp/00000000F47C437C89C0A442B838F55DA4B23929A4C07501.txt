@@ -1,0 +1,17 @@
+Host=KHM-UNG-DB03N1.rosneft.ru 
+Target type=Database Instance 
+Target name=CDNG3.UN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=CDNG3.UN.SMD&targetType=oracle_database>  
+Incident creation time=Jan 29, 2026 4:40:21 PM YEKT 
+Last updated time=Jan 29, 2026 4:56:18 PM YEKT 
+Message=Alert for Apply errors is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=8477256A6E2E430C9FB67F80A14FD7D2>  
+Severity=Clear 
+Incident ID=93370 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

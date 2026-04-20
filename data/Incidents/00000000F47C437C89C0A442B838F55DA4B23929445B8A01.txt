@@ -1,0 +1,19 @@
+Host=KHM-UNG-ORA02.rosneft.ru 
+Target type=Database Instance 
+Target name=NKT <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=NKT&targetType=oracle_database>  
+Incident creation time=Apr 16, 2026 12:02:10 PM YEKT 
+Last updated time=Apr 16, 2026 12:02:10 PM YEKT 
+Message=The database status is UNKNOWN. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=7B3984164EFB475C912927B1455402B7>  
+Severity=Critical 
+Incident ID=99412 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Availability 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

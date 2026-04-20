@@ -1,0 +1,17 @@
+Host=khm-ung-ora11.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS_TEST.YNG.RN.RU <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS_TEST.YNG.RN.RU&targetType=oracle_database>  
+Incident creation time=Apr 18, 2026 6:01:12 PM YEKT 
+Last updated time=Apr 19, 2026 5:16:14 PM YEKT 
+Message=Alert for Hang jobs is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=20D0A19940814BE9AA545F970C03879F>  
+Severity=Clear 
+Incident ID=99502 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

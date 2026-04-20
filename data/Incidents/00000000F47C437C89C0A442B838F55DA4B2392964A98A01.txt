@@ -1,0 +1,17 @@
+Host=khm-ung-db08n1.rosneft.ru 
+Target type=Agent 
+Target name=khm-ung-db08n1.rosneft.ru:3872 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=khm-ung-db08n1.rosneft.ru%3A3872&targetType=oracle_emd>  
+Incident creation time=Apr 18, 2026 1:56:25 PM YEKT 
+Last updated time=Apr 18, 2026 2:03:41 PM YEKT 
+Message=The current status of the target is Up <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=47AD36487C7A490FBFDBF30CC0CB1D9A>  
+Severity=Clear 
+Incident ID=99493 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Availability 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

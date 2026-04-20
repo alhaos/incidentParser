@@ -1,0 +1,17 @@
+Host=KHM-UNG-ORA02.rosneft.ru 
+Target type=Database Instance 
+Target name=CDB <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=CDB&targetType=oracle_database>  
+Incident creation time=Mar 22, 2026 12:03:50 AM YEKT 
+Last updated time=Mar 22, 2026 2:13:50 AM YEKT 
+Message=Alert for UNUSABLE_INDEX is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=BB70D88F6C75467B8604AC0613215619>  
+Severity=Clear 
+Incident ID=97142 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

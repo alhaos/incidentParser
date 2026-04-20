@@ -1,0 +1,19 @@
+Host=KHM-UNG-ORA10.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.YNG.RN.RU <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.YNG.RN.RU&targetType=oracle_database>  
+Incident creation time=Apr 18, 2026 4:44:12 AM YEKT 
+Last updated time=Apr 18, 2026 4:44:12 AM YEKT 
+Message=Total db time 845 seconds is consumed by 1 sessions blocked by session SID,SERIAL:13560,11825,LOCK_TYPE:UL,PROGRAM:ORACLE.EXE (J005),MODULE:DBMS_SCHEDULER,ACTION:DEMOPKGPROCESSLOAD2,MACHINE:KHM-UNG-ORA10,OSUSER:SYSTEM,USERNAME:PIPE48. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=7DC39287186646F1AC4624A5FBEC0AC6>  
+Severity=Critical 
+Incident ID=99476 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Load 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

@@ -1,0 +1,17 @@
+Host=KHM-UNG-ORA10.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.YNG.RN.RU <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.YNG.RN.RU&targetType=oracle_database>  
+Incident creation time=Mar 18, 2026 1:08:40 PM YEKT 
+Last updated time=Apr 16, 2026 9:02:09 PM YEKT 
+Message=Tablespace [SYSAUX] is [95.03 percent] full <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=294E0C127DB643E4B3BA8A711F065C2A>  
+Severity=Critical 
+Incident ID=96951 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Capacity 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

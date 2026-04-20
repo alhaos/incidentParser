@@ -1,0 +1,17 @@
+Host=KHM-UNG-DB12N1.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.CDNG12.PR.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.CDNG12.PR.YNG.RN&targetType=oracle_database>  
+Incident creation time=Nov 11, 2025 12:27:27 PM YEKT 
+Last updated time=Mar 5, 2026 2:57:22 AM YEKT 
+Message=Tablespace [USR_COMPRESS] is [98.23 percent] full <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=CED06CEBA62E42BDBD44A5260493A19B>  
+Severity=Critical 
+Incident ID=86455 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Capacity 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

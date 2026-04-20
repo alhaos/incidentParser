@@ -1,0 +1,17 @@
+Host=KHM-UNG-DB24N2.rosneft.ru 
+Target type=Host 
+Target name=KHM-UNG-DB24N2.rosneft.ru <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=KHM-UNG-DB24N2.rosneft.ru&targetType=host>  
+Incident creation time=Apr 16, 2026 6:19:56 PM YEKT 
+Last updated time=Apr 16, 2026 6:20:44 PM YEKT 
+Message=The current status of the target is Up <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=A76350B5B0AC4D2F9A51B17E47EB0A96>  
+Severity=Clear 
+Incident ID=99430 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Availability 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

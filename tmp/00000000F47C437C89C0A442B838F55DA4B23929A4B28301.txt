@@ -1,0 +1,17 @@
+Host=KHM-UNG-YR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=UN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=UN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Mar 29, 2026 12:24:08 PM YEKT 
+Last updated time=Mar 29, 2026 1:28:18 PM YEKT 
+Message=Alert for PREDIX Loader of PREDIX_TM_PN is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=EC71836ACE54470B81770DB6E205CE3B>  
+Severity=Clear 
+Incident ID=97681 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

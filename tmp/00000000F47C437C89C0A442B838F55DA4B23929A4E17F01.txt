@@ -1,0 +1,21 @@
+Host=KHM-UNG-ORA08.rosneft.ru 
+Target type=Agent 
+Target name=KHM-UNG-ORA08.rosneft.ru:3872 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=KHM-UNG-ORA08.rosneft.ru%3A3872&targetType=oracle_emd>  
+Incident creation time=Mar 11, 2026 11:00:28 PM YEKT 
+Last updated time=Mar 11, 2026 11:00:28 PM YEKT 
+Message=Agent has stopped monitoring. The following errors are reported : agent shutdown. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=CC9E249CD65C4D269417F22E54F62991>  
+Severity=Fatal 
+Incident ID=96486 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Availability 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Root Cause Analysis Status=Neither Cause Nor Symptom 
+This incident has an event that is neither a cause nor a symptom. 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, TARGETS_AVAILABILITY_RULE; Owner = GORBACHEVEV). 

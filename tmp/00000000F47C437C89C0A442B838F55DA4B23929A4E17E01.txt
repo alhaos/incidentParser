@@ -1,0 +1,17 @@
+Host=KHM-UNG-ORA10.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.YNG.RN.RU <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.YNG.RN.RU&targetType=oracle_database>  
+Incident creation time=Mar 5, 2026 4:40:36 AM YEKT 
+Last updated time=Mar 5, 2026 5:10:36 AM YEKT 
+Message=Alert for Blocking Session DB Time for 1073742073_0_12095_18647 is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=A6487E4BB0B74D6592098DF457996D1F>  
+Severity=Clear 
+Incident ID=96163 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Load 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

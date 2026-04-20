@@ -1,0 +1,17 @@
+Host=KHM-UNG-DB15N1.rosneft.ru 
+Target type=Database Instance 
+Target name=CDNG15.MSN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=CDNG15.MSN.SMD&targetType=oracle_database>  
+Incident creation time=Apr 16, 2026 11:01:36 AM YEKT 
+Last updated time=Apr 16, 2026 11:25:13 AM YEKT 
+Message=Alert for Blocking Session DB Time for 1073741828_0_771_7775 is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=6B670ADBBBBF422BB534820EDAD52034>  
+Severity=Clear 
+Incident ID=99406 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Load 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

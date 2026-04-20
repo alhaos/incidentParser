@@ -1,0 +1,17 @@
+Host=KHM-UNG-PR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=PN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=PN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Apr 19, 2026 12:21:32 PM YEKT 
+Last updated time=Apr 19, 2026 12:31:32 PM YEKT 
+Message=CDS Loader TM4 PN, value = 136 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=FCDE2C6658EA4F07AF17B179E5D03AD0>  
+Severity=Critical 
+Incident ID=99533 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

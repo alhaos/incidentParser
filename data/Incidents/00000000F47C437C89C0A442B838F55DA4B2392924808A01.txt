@@ -1,0 +1,19 @@
+Host=KHM-UNG-ORA06.rosneft.ru 
+Target type=Database Instance 
+Target name=TIS <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=TIS&targetType=oracle_database>  
+Incident creation time=Apr 17, 2026 9:43:13 AM YEKT 
+Last updated time=Apr 17, 2026 9:43:13 AM YEKT 
+Message=Total db time 655 seconds is consumed by 1 sessions blocked by session SID,SERIAL:201,6763,LOCK_TYPE:TM,PROGRAM:ORACLE.EXE (J000),MODULE:DBMS_SCHEDULER,ACTION:LOAD_GTM,MACHINE:KHM-UNG-ORA06,OSUSER:SYSTEM,USERNAME:TIS_LOADER. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=2EED4AA12C514EFDB5AA37640417B63B>  
+Severity=Critical 
+Incident ID=99454 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Load 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

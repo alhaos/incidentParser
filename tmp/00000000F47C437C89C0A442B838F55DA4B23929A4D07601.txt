@@ -1,0 +1,17 @@
+Host=KHM-UNG-PRB01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.PR_TEST.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.PR_TEST.YNG.RN&targetType=oracle_database>  
+Incident creation time=Feb 3, 2026 1:04:03 PM YEKT 
+Last updated time=Feb 3, 2026 9:19:04 PM YEKT 
+Message=Alert for Capture_need_old_logs is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=CBA21E201883466BA33A5B2CEAE6E5F1>  
+Severity=Clear 
+Incident ID=93659 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Incident log | Clean viewer</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: #f1f5f9;
+                font-family:
+                    "Inter",
+                    -apple-system,
+                    "Segoe UI",
+                    "Roboto",
+                    system-ui,
+                    sans-serif;
+                padding: 2rem 1.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+             
+            .log-container {
+                max-width: 1400px;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+             
+            .log-header {
+                margin-bottom: 1.75rem;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid #e2e8f0;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .title-section h1 {
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: #0f172a;
+                letter-spacing: -0.3px;
+            }
+
+            .title-section p {
+                font-size: 0.8rem;
+                color: #475569;
+                margin-top: 0.2rem;
+            }
+
+            .counter {
+                font-size: 0.75rem;
+                font-weight: 500;
+                background: #eef2ff;
+                color: #1e40af;
+                padding: 0.3rem 0.8rem;
+                border-radius: 20px;
+                font-family: monospace;
+            }
+
+             
+            .grid-row {
+                display: grid;
+                grid-template-columns: 0.45fr 1.2fr 0.9fr 1.1fr 1.1fr;
+                background: #ffffff;
+                border-radius: 0;
+                margin-bottom: 0;
+                transition: background 0.15s ease;
+            }
+
+             
+            .cell {
+                padding: 0.85rem 1rem;
+                font-size: 0.85rem;
+                line-height: 1.4;
+                color: #1e293b;
+                border-bottom: 1px solid #e9edf2;
+                border-right: 1px solid #eff2f6;
+                word-break: break-word;
+            }
+
+            .grid-row .cell:last-child {
+                border-right: none;
+            }
+
+             
+            .header-row {
+                background: #f8fafc;
+                border-bottom: 2px solid #cbd5e1;
+                border-radius: 0;
+            }
+
+            .header-row .cell {
+                font-weight: 600;
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                color: #334155;
+                background: #f8fafc;
+                border-bottom: 1px solid #e2e8f0;
+                padding: 0.7rem 1rem;
+            }
+
+             
+            .grid-row .cell:first-child {
+                font-family: "SF Mono", "Fira Code", monospace;
+                font-weight: 500;
+                color: #0c4a6e;
+                background-color: #fafcff;
+            }
+
+             
+            .extended-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                background: #fefefe;
+                border-top: 1px solid #ecf3f9;
+                margin-top: -1px;
+            }
+
+            .extended-cell {
+                padding: 0.7rem 1rem;
+                font-size: 0.8rem;
+                color: #334155;
+                border-bottom: 1px solid #f0f4f9;
+                line-height: 1.45;
+                display: flex;
+                gap: 0.6rem;
+            }
+
+            .extended-cell:first-child {
+                border-right: 1px solid #eff3f8;
+            }
+
+            .label-icon {
+                font-weight: 400;
+                opacity: 0.6;
+                font-size: 0.85rem;
+                min-width: 24px;
+            }
+
+            .message-text {
+                color: #2c3e50;
+            }
+
+            .file-text {
+                font-family: "SF Mono", "Fira Code", monospace;
+                font-size: 0.75rem;
+                color: #4b5563;
+            }
+
+             
+            .records {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #eef2f8;
+                background: white;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            }
+
+             
+            .incident-wrapper:hover .grid-row {
+                background-color: #fafdff;
+            }
+
+            .incident-wrapper:hover .extended-row {
+                background-color: #fdfdfd;
+            }
+
+             
+            .incident-wrapper:not(:last-child) .grid-row .cell {
+                border-bottom-color: #edf2f7;
+            }
+
+             
+            .empty-state {
+                background: white;
+                border-radius: 20px;
+                padding: 3rem 2rem;
+                text-align: center;
+                border: 1px solid #eef2f8;
+                color: #475569;
+            }
+
+             
+            @media (max-width: 850px) {
+                body {
+                    padding: 1rem;
+                }
+                .grid-row {
+                    grid-template-columns: 0.6fr 1fr 0.9fr 1fr 1fr;
+                }
+                .cell {
+                    padding: 0.7rem 0.6rem;
+                    font-size: 0.75rem;
+                }
+                .extended-row {
+                    grid-template-columns: 1fr;
+                }
+                .extended-cell:first-child {
+                    border-right: none;
+                    border-bottom: 1px solid #f0f4f9;
+                }
+            }
+
+            @media (max-width: 650px) {
+                .grid-row {
+                    grid-template-columns: 0.7fr 1.1fr 0.8fr 1fr 1fr;
+                }
+            }
+
+             
+            .mono {
+                font-family: monospace;
+            }
+
+            .text-muted {
+                color: #64748b;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="log-container">
+            <div class="log-header">
+                <div class="title-section">
+                    <h1>📋 Incident log</h1>
+                    <p>structured security events · clear and readable</p>
+                </div>
+                <div class="counter">8 records</div>
+            </div>
+
+            <div class="records">
+                
+                <div class="grid-row header-row">
+                    <div class="cell">Incident ID</div>
+                    <div class="cell">Target name</div>
+                    <div class="cell">Type</div>
+                    <div class="cell">Host</div>
+                    <div class="cell">Creation time</div>
+                </div>
+
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">99459</div>
+                        <div class="cell">UN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-YR01N1.rosneft.ru</div>
+                        <div class="cell">2026-04-17 12:03:58 &#43;0500 &#43;05</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Loader TM4 sessions count = 332 &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&amp;issueID=773F8F50E19646678465E423EF15F2A7&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904838A01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">99412</div>
+                        <div class="cell">NKT </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA02.rosneft.ru</div>
+                        <div class="cell">2026-04-16 12:02:10 &#43;0500 &#43;05</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">The database status is UNKNOWN. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&amp;issueID=7B3984164EFB475C912927B1455402B7&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929445B8A01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">99527</div>
+                        <div class="cell">UN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-YR01N1.rosneft.ru</div>
+                        <div class="cell">2026-04-19 12:04:01 &#43;0500 &#43;05</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Loader TM4 sessions count = 321 &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&amp;issueID=6705D0FA84C942FE863FC01F65AAD4CD&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944C18A01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">99413</div>
+                        <div class="cell">NKT </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA02.rosneft.ru</div>
+                        <div class="cell">2026-04-16 12:02:10 &#43;0500 &#43;05</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Failed to connect to database instance: Failed to connect: java.sql.SQLException: Listener refused the connection with the following error: ORA-12518, TNS:listener could not hand off client connection . &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&amp;issueID=66EA642E149443ACB06A6053E5A9C173&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929645B8A01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">99413</div>
+                        <div class="cell">NKT </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA02.rosneft.ru</div>
+                        <div class="cell">2026-04-16 12:02:10 &#43;0500 &#43;05</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Failed to connect to database instance: Failed to connect: java.sql.SQLException: Listener refused the connection with the following error: ORA-12518, TNS:listener could not hand off client connection . &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&amp;issueID=66EA642E149443ACB06A6053E5A9C173&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929845B8A01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">99414</div>
+                        <div class="cell">UN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-YR01N1.rosneft.ru</div>
+                        <div class="cell">2026-04-16 12:03:56 &#43;0500 &#43;05</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Loader TM4 sessions count = 317 &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&amp;issueID=8DEBF1988EAE4F648FDD775A8986FE56&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A45B8A01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">99539</div>
+                        <div class="cell">CDB16 </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">2026-04-19 14:33:19 &#43;0500 &#43;05</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Incident (ORA 3137 [3120]) detected in D:\ORACLE\diag\rdbms\cdb16\cdb16\alert\log.xml at time/line number: Sun Apr 19 14:32:11 2026/203573. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&amp;issueID=544A4A783C7C4E129DC0AA3A25E82B96&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4C98A01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">99491</div>
+                        <div class="cell">UN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-YR01N1.rosneft.ru</div>
+                        <div class="cell">2026-04-18 12:03:59 &#43;0500 &#43;05</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Loader TM4 sessions count = 316 &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&amp;issueID=B8EE410773C949198AE16A5907DCF55A&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4A58A01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+</html>

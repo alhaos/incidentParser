@@ -1,0 +1,19 @@
+Host=KHM-UNG-DB21N2.rosneft.ru 
+Target type=Agent 
+Target name=KHM-UNG-DB21N2.rosneft.ru:3872 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=KHM-UNG-DB21N2.rosneft.ru%3A3872&targetType=oracle_emd>  
+Incident creation time=Feb 8, 2026 9:13:45 AM YEKT 
+Last updated time=Feb 8, 2026 9:13:45 AM YEKT 
+Message=Agent Unreachable (REASON = Unable to connect to the agent at https://KHM-UNG-DB21N2.rosneft.ru:3872/emd/main/ [Connection timed out: connect]). Host is reachable. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=70BF734C924F43AAB1F52EE772E49584>  
+Severity=Critical 
+Incident ID=94013 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Availability 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, TARGETS_AVAILABILITY_RULE; Owner = GORBACHEVEV). 

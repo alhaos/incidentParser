@@ -1,0 +1,17 @@
+Host=KHM-UNG-ORA06.rosneft.ru 
+Target type=Database Instance 
+Target name=TIS <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=TIS&targetType=oracle_database>  
+Incident creation time=Jan 29, 2026 10:44:41 AM YEKT 
+Last updated time=Jan 29, 2026 10:59:41 AM YEKT 
+Message=Alert for Blocking Session DB Time for 28388_0_689_57659 is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=133D7C2D8DA240E4BA08B9C6E05108DF>  
+Severity=Clear 
+Incident ID=93330 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Load 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

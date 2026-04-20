@@ -1,0 +1,17 @@
+Host=KHM-UNG-RND01.ROSNEFT.RU 
+Target type=Database Instance 
+Target name=DEED.YNG.RN.RU <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=DEED.YNG.RN.RU&targetType=oracle_database>  
+Incident creation time=Feb 27, 2026 12:18:28 PM YEKT 
+Last updated time=Feb 27, 2026 2:18:42 PM YEKT 
+Message=Tablespace [USR_OLE_20] is [6.71 percent] full <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=6A554EBDDC9D4639ADBFDB33E2743696>  
+Severity=Clear 
+Incident ID=95823 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Capacity 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

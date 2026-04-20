@@ -1,0 +1,17 @@
+Host=KHM-UNG-DB21N1.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.CDNG21.PR.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.CDNG21.PR.YNG.RN&targetType=oracle_database>  
+Incident creation time=Mar 17, 2026 12:47:19 AM YEKT 
+Last updated time=Mar 17, 2026 1:54:41 AM YEKT 
+Message=The database is UP. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=C0DCD828112943749E4D9E28D997F987>  
+Severity=Clear 
+Incident ID=96831 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Availability 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

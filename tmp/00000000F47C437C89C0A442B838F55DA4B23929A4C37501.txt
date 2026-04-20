@@ -1,0 +1,17 @@
+Host=KHM-UNG-MSR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=MSN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=MSN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Jan 29, 2026 4:19:58 PM YEKT 
+Last updated time=Jan 29, 2026 5:09:58 PM YEKT 
+Message=Status for Streams process APPLY_WELLOP_FROM_CDNG18 is ENABLED. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=00FB8C1C244144E6B5D74328C0AE4F7B>  
+Severity=Clear 
+Incident ID=93352 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Error 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

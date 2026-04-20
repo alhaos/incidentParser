@@ -1,0 +1,17 @@
+Host=KHM-UNG-ORA02.rosneft.ru 
+Target type=Database Instance 
+Target name=NKT <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=NKT&targetType=oracle_database>  
+Incident creation time=Apr 16, 2026 2:48:35 PM YEKT 
+Last updated time=Apr 16, 2026 3:08:35 PM YEKT 
+Message=Alert for Snapshot not refresh is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=97AC8FFB499D46A08902FB1D83D1DA88>  
+Severity=Clear 
+Incident ID=99421 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

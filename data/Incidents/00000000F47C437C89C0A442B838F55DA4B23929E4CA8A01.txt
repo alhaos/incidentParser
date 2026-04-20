@@ -1,0 +1,19 @@
+Host=KHM-UNG-ORA02.rosneft.ru 
+Target type=Database Instance 
+Target name=NKT <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=NKT&targetType=oracle_database>  
+Incident creation time=Apr 19, 2026 2:54:45 PM YEKT 
+Last updated time=Apr 19, 2026 2:54:45 PM YEKT 
+Message=Total db time 843 seconds is consumed by 1 sessions blocked by session SID,SERIAL:962,1189,LOCK_TYPE:TX,PROGRAM:DefaultDomain,MODULE:DefaultDomain,ACTION:,MACHINE:NC-17301,OSUSER:AMShaykhavov,USERNAME:EIGOLOVCHENKO. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=62B309CC9E8E47D594021782E10AFA41>  
+Severity=Critical 
+Incident ID=99541 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Load 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

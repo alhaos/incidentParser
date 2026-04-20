@@ -1,0 +1,17 @@
+Host=KHM-UNG-PR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=PN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=PN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Feb 13, 2026 10:59:09 AM YEKT 
+Last updated time=Feb 13, 2026 11:08:38 AM YEKT 
+Message=STREAMS error queue for apply process "APPLY_WELLOP_FROM_CDNG20" contains new transaction with ORA-4068 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=5BDB5FA689754B17BDF5965416962F38>  
+Severity=Clear 
+Incident ID=94461 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Fault 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

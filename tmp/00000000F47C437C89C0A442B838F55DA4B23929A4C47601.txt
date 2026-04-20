@@ -1,0 +1,19 @@
+Host=KHM-UNG-PR01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=PN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=PN.SMD&targetType=oracle_database>  
+Incident creation time=Feb 3, 2026 2:27:59 PM YEKT 
+Last updated time=Feb 3, 2026 2:27:59 PM YEKT 
+Message=STREAMS error queue for apply process "APPLY_WELLOP_FROM_CENTR" contains new transaction with ORA-26787 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=8A5097117A60463199F2F6F0A108E60D>  
+Severity=Critical 
+Incident ID=93661 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Fault 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

@@ -1,0 +1,19 @@
+Host=KHM-UNG-DB15N1.rosneft.ru 
+Target type=Database Instance 
+Target name=RNKIN.CDNG15.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=RNKIN.CDNG15.YNG.RN&targetType=oracle_database>  
+Incident creation time=Apr 16, 2026 11:19:57 AM YEKT 
+Last updated time=Apr 16, 2026 11:19:57 AM YEKT 
+Message=Tablespace [TS_KIN_BLOB_MAY] is [90.02 percent] full <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=0E2C2E0491CD4FD19C6FE6BD5E0D92CE>  
+Severity=Warning 
+Incident ID=99407 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Capacity 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

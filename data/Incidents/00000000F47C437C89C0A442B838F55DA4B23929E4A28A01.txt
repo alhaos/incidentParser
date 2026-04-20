@@ -1,0 +1,19 @@
+Host=KHM-UNG-YR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=UN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=UN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Apr 18, 2026 10:15:53 AM YEKT 
+Last updated time=Apr 18, 2026 10:15:53 AM YEKT 
+Message=CDS Loader TM4 UN, value = 125 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=0E0BA15A3DD24719B1DB8FF270D1BD03>  
+Severity=Warning 
+Incident ID=99489 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, ME_RULE; Owner = GORBACHEVEV). 

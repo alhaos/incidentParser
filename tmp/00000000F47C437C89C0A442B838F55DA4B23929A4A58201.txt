@@ -1,0 +1,17 @@
+Host=KHM-UNG-DB22N2.rosneft.ru 
+Target type=Agent 
+Target name=KHM-UNG-DB22N2.rosneft.ru:3872 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=KHM-UNG-DB22N2.rosneft.ru%3A3872&targetType=oracle_emd>  
+Incident creation time=Mar 25, 2026 12:53:18 PM YEKT 
+Last updated time=Mar 25, 2026 5:33:57 PM YEKT 
+Message=The current status of the target is Up <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=20F8A2714DE44A6E844E984B90B49283>  
+Severity=Clear 
+Incident ID=97322 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Availability 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

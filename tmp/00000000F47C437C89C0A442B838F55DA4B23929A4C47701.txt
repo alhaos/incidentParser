@@ -1,0 +1,19 @@
+Host=KHM-UNG-DB01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=CDNG1.UN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=CDNG1.UN.SMD&targetType=oracle_database>  
+Incident creation time=Feb 7, 2026 2:11:39 PM YEKT 
+Last updated time=Feb 7, 2026 2:11:39 PM YEKT 
+Message=STREAMS error queue for apply process "APPLY_WELLOP" contains new transaction with ORA-1 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=58F96E6E3F424E2AAE610F04AC0DAD88>  
+Severity=Critical 
+Incident ID=93971 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Fault 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

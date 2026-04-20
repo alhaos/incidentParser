@@ -1,0 +1,19 @@
+Host=KHM-UNG-MSR01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=MSN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=MSN.SMD&targetType=oracle_database>  
+Incident creation time=Jan 26, 2026 5:56:18 AM YEKT 
+Last updated time=Jan 26, 2026 5:56:18 AM YEKT 
+Message=Snapshot not refresh = 1 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=563010CEC20E447A8EDB011CAFA39709>  
+Severity=Critical 
+Incident ID=93153 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, ME_RULE; Owner = GORBACHEVEV). 

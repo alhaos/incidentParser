@@ -1,0 +1,17 @@
+Host=KHM-UNG-DB21N1.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.CDNG21.PR.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.CDNG21.PR.YNG.RN&targetType=oracle_database>  
+Incident creation time=Nov 14, 2025 1:07:27 PM YEKT 
+Last updated time=Jan 29, 2026 11:49:05 AM YEKT 
+Message=Tablespace [WELLOP] is [97.14 percent] full <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=916752E08CFA4AD4B8B3EEF091BFA70F>  
+Severity=Critical 
+Incident ID=86723 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Capacity 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

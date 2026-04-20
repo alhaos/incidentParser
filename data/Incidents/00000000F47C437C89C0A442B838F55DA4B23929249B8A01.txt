@@ -1,0 +1,19 @@
+Host=KHM-UNG-MSR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=MSN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=MSN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Apr 18, 2026 5:22:55 AM YEKT 
+Last updated time=Apr 18, 2026 5:22:55 AM YEKT 
+Message=Tablespace [MLOG] is [93.08 percent] full <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=4E9B20A713C84F9C9B30194FDB5AD7F9>  
+Severity=Warning 
+Incident ID=99478 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Capacity 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

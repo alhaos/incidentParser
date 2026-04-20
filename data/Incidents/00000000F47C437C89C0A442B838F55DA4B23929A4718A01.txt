@@ -1,0 +1,17 @@
+Host=KHM-UNG-DB22N1.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.CDNG22.PR.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.CDNG22.PR.YNG.RN&targetType=oracle_database>  
+Incident creation time=Apr 9, 2026 4:20:49 AM YEKT 
+Last updated time=Apr 17, 2026 2:05:01 AM YEKT 
+Message=Tablespace [CDS] is [92.86 percent] full <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=AD90B43D4C2D4F8497562D111E09A978>  
+Severity=Clear 
+Incident ID=98849 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Capacity 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

@@ -1,0 +1,19 @@
+Host=KHM-UNG-PR01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=PN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=PN.SMD&targetType=oracle_database>  
+Incident creation time=Mar 29, 2026 10:04:21 PM YEKT 
+Last updated time=Mar 29, 2026 10:04:21 PM YEKT 
+Message=Stats Stale = 2 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=2B6E2E9F8EB749A8A63D535698D975A7>  
+Severity=Critical 
+Incident ID=97690 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, ME_RULE; Owner = GORBACHEVEV). 

@@ -1,0 +1,17 @@
+Host=KHM-UNG-DB22N1.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.CDNG22.PR.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.CDNG22.PR.YNG.RN&targetType=oracle_database>  
+Incident creation time=Mar 10, 2026 11:18:30 AM YEKT 
+Last updated time=Mar 10, 2026 11:23:30 AM YEKT 
+Message=Status for Streams process PROP_CDS_TO_REGION is ENABLED. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=1DEE2B10915A4B9098D2FC6B45ECD0C8>  
+Severity=Clear 
+Incident ID=96409 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Error 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

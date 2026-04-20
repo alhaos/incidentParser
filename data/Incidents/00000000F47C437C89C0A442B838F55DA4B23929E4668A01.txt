@@ -1,0 +1,17 @@
+Host=KHM-UNG-PR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=PN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=PN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Apr 16, 2026 3:56:14 PM YEKT 
+Last updated time=Apr 16, 2026 4:41:14 PM YEKT 
+Message=Alert for Capture_need_old_logs is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=D55CEE1FD2CF426DB415A99FCFC2A1BB>  
+Severity=Clear 
+Incident ID=99425 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

@@ -1,0 +1,17 @@
+Host=KHM-UNG-PRB01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.PR.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.PR.YNG.RN&targetType=oracle_database>  
+Incident creation time=Mar 17, 2026 1:38:12 AM YEKT 
+Last updated time=Mar 17, 2026 1:43:12 AM YEKT 
+Message=Status for Streams process PROP_WELLOP_TO_CDNG21 is ENABLED. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=BC8389AD1FC24B2CB8AD7E02DBFAD47A>  
+Severity=Clear 
+Incident ID=96837 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Error 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

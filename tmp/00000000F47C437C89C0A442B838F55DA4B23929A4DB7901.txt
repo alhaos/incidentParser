@@ -1,0 +1,17 @@
+Host=KHM-UNG-DB15N1.rosneft.ru 
+Target type=Database Instance 
+Target name=RNKIN.CDNG15.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=RNKIN.CDNG15.YNG.RN&targetType=oracle_database>  
+Incident creation time=Aug 7, 2025 12:10:40 PM YEKT 
+Last updated time=Feb 13, 2026 3:25:45 PM YEKT 
+Message=Tablespace [TS_KIN_RAW_MAY] is [94.07 percent] full <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=A31D704283BC423A9C89C3410681C3E9>  
+Severity=Warning 
+Incident ID=77704 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Capacity 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

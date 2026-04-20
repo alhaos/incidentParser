@@ -1,0 +1,17 @@
+Host=KHM-UNG-ORA02.rosneft.ru 
+Target type=Database Instance 
+Target name=NKT <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=NKT&targetType=oracle_database>  
+Incident creation time=Apr 19, 2026 2:54:45 PM YEKT 
+Last updated time=Apr 19, 2026 3:09:45 PM YEKT 
+Message=Alert for Blocking Session DB Time for 1245196_108133_962_1189 is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=62B309CC9E8E47D594021782E10AFA41>  
+Severity=Clear 
+Incident ID=99541 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Load 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

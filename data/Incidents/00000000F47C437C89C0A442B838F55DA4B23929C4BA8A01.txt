@@ -1,0 +1,17 @@
+Host=KHM-UNG-PR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=PN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=PN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Apr 19, 2026 10:01:20 AM YEKT 
+Last updated time=Apr 19, 2026 10:06:19 AM YEKT 
+Message=Alert for DDL Locks is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=DA5882DE339B439A96DCBFB86A4DD104>  
+Severity=Clear 
+Incident ID=99524 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

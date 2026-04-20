@@ -1,0 +1,17 @@
+Host=KHM-UNG-PR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=PN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=PN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Apr 20, 2026 5:35:31 AM YEKT 
+Last updated time=Apr 20, 2026 5:50:31 AM YEKT 
+Message=Alert for Blocking Session DB Time for 1073741831_0_471_20127 is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=77354DE4B6B34CDEB27FEB2C7E9087CB>  
+Severity=Clear 
+Incident ID=99560 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Load 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

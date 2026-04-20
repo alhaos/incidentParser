@@ -1,0 +1,27 @@
+Host=KHM-UNG-ORA06.rosneft.ru 
+Target type=Database Instance 
+Target name=CDB16 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=CDB16&targetType=oracle_database>  
+Incident creation time=Apr 19, 2026 2:33:19 PM YEKT 
+Last updated time=Apr 19, 2026 2:33:19 PM YEKT 
+Message=Incident (ORA 3137 [3120]) detected in D:\ORACLE\diag\rdbms\cdb16\cdb16\alert\log.xml at time/line number: Sun Apr 19 14:32:11 2026/203573. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=544A4A783C7C4E129DC0AA3A25E82B96>  
+Severity=Critical 
+Incident ID=99539 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+ADR Incident ID=18163 
+Problem Key=ORA 3137 [3120] 
+Associated Problem ID=99540 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailProblem&issueID=33702EE4A6EE416F96DB732C506C3F1C>  
+Associated Problem Status=New 
+Associated Problem Owner= 
+Associated Problem Acknowledged By Owner=No 
+Associated Problem Priority=None 
+Associated Problem Escalation Level=0 
+Associated Problem bug ID= 
+Associated Problem SR ID= 
+Categories=Diagnostics, Fault 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

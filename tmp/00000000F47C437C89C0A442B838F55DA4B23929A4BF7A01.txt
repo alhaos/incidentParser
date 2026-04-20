@@ -1,0 +1,17 @@
+Host=KHM-UNG-MSR01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=MSN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=MSN.SMD&targetType=oracle_database>  
+Incident creation time=Feb 18, 2026 4:03:19 PM YEKT 
+Last updated time=Feb 18, 2026 4:08:16 PM YEKT 
+Message=STREAMS error queue for apply process "APPLY_CDS_FROM_CDNG24" contains new transaction with ORA-26786 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=B373BD5E710345E09F83A93ACF45A6B7>  
+Severity=Clear 
+Incident ID=94792 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Fault 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

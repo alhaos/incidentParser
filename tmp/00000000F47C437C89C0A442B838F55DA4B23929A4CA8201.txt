@@ -1,0 +1,17 @@
+Host=KHM-UNG-MSR01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=MSN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=MSN.SMD&targetType=oracle_database>  
+Incident creation time=Mar 25, 2026 11:17:44 PM YEKT 
+Last updated time=Mar 26, 2026 12:17:44 AM YEKT 
+Message=Alert for Stats Stale is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=06143580F40342B295A4E8E0B2D59AD1>  
+Severity=Clear 
+Incident ID=97380 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

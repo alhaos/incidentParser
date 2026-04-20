@@ -1,0 +1,17 @@
+Host=KHM-UNG-MSR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=MSN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=MSN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Feb 11, 2026 5:24:33 AM YEKT 
+Last updated time=Feb 11, 2026 8:09:34 AM YEKT 
+Message=Capture need archivelog older than 2 hour for restart <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=103D98230D104447A1666DBE24CC9A34>  
+Severity=Warning 
+Incident ID=94178 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

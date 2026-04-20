@@ -1,0 +1,19 @@
+Host=khm-ung-ora11.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS_TEST.YNG.RN.RU <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS_TEST.YNG.RN.RU&targetType=oracle_database>  
+Incident creation time=Feb 27, 2026 12:02:28 PM YEKT 
+Last updated time=Feb 27, 2026 12:02:28 PM YEKT 
+Message=Invalid Object Count in WELLOP205 schema is 2 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=5497A7B7A99C4067AAB88BAEDD733BA7>  
+Severity=Critical 
+Incident ID=95820 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Error 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, DB_ALERT_RULE; Owner = GORBACHEVEV). 

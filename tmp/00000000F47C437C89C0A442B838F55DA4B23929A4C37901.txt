@@ -1,0 +1,17 @@
+Host=KHM-UNG-PR01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=PN.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=PN.SMD&targetType=oracle_database>  
+Incident creation time=Feb 13, 2026 11:49:51 AM YEKT 
+Last updated time=Feb 13, 2026 11:54:50 AM YEKT 
+Message=Status for Streams process PROP_CDS_TO_CDNG11 is ENABLED. <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=0FD43ADDBEA64EB79F51D60D14F25CF9>  
+Severity=Clear 
+Incident ID=94487 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Error 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 

@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Incident log | Clean viewer</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: #f1f5f9;
+                font-family:
+                    "Inter",
+                    -apple-system,
+                    "Segoe UI",
+                    "Roboto",
+                    system-ui,
+                    sans-serif;
+                padding: 2rem 1.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            /* контейнер с комфортной шириной */
+            .log-container {
+                max-width: 1400px;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            /* заголовок — спокойный и строгий */
+            .log-header {
+                margin-bottom: 1.75rem;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid #e2e8f0;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .title-section h1 {
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: #0f172a;
+                letter-spacing: -0.3px;
+            }
+
+            .title-section p {
+                font-size: 0.8rem;
+                color: #475569;
+                margin-top: 0.2rem;
+            }
+
+            .counter {
+                font-size: 0.75rem;
+                font-weight: 500;
+                background: #eef2ff;
+                color: #1e40af;
+                padding: 0.3rem 0.8rem;
+                border-radius: 20px;
+                font-family: monospace;
+            }
+
+            /* табличная сетка — чёткая, строгая */
+            .grid-row {
+                display: grid;
+                grid-template-columns: 0.45fr 1.2fr 0.9fr 1.1fr 1.1fr;
+                background: #ffffff;
+                border-radius: 0;
+                margin-bottom: 0;
+                transition: background 0.15s ease;
+            }
+
+            /* ячейки */
+            .cell {
+                padding: 0.85rem 1rem;
+                font-size: 0.85rem;
+                line-height: 1.4;
+                color: #1e293b;
+                border-bottom: 1px solid #e9edf2;
+                border-right: 1px solid #eff2f6;
+                word-break: break-word;
+            }
+
+            .grid-row .cell:last-child {
+                border-right: none;
+            }
+
+            /* строка-заголовок */
+            .header-row {
+                background: #f8fafc;
+                border-bottom: 2px solid #cbd5e1;
+                border-radius: 0;
+            }
+
+            .header-row .cell {
+                font-weight: 600;
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                color: #334155;
+                background: #f8fafc;
+                border-bottom: 1px solid #e2e8f0;
+                padding: 0.7rem 1rem;
+            }
+
+            /* подсветка ID — лёгкая, не кричащая */
+            .grid-row .cell:first-child {
+                font-family: "SF Mono", "Fira Code", monospace;
+                font-weight: 500;
+                color: #0c4a6e;
+                background-color: #fafcff;
+            }
+
+            /* строка с сообщением и файлом — отдельный блок */
+            .extended-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                background: #fefefe;
+                border-top: 1px solid #ecf3f9;
+                margin-top: -1px;
+            }
+
+            .extended-cell {
+                padding: 0.7rem 1rem;
+                font-size: 0.8rem;
+                color: #334155;
+                border-bottom: 1px solid #f0f4f9;
+                line-height: 1.45;
+                display: flex;
+                gap: 0.6rem;
+            }
+
+            .extended-cell:first-child {
+                border-right: 1px solid #eff3f8;
+            }
+
+            .label-icon {
+                font-weight: 400;
+                opacity: 0.6;
+                font-size: 0.85rem;
+                min-width: 24px;
+            }
+
+            .message-text {
+                color: #2c3e50;
+            }
+
+            .file-text {
+                font-family: "SF Mono", "Fira Code", monospace;
+                font-size: 0.75rem;
+                color: #4b5563;
+            }
+
+            /* главный контейнер для записей — без лишних теней */
+            .records {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #eef2f8;
+                background: white;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            }
+
+            /* эффект при наведении на запись — очень мягкий */
+            .incident-wrapper:hover .grid-row {
+                background-color: #fafdff;
+            }
+
+            .incident-wrapper:hover .extended-row {
+                background-color: #fdfdfd;
+            }
+
+            /* разделители между инцидентами — аккуратные */
+            .incident-wrapper:not(:last-child) .grid-row .cell {
+                border-bottom-color: #edf2f7;
+            }
+
+            /* пустое состояние */
+            .empty-state {
+                background: white;
+                border-radius: 20px;
+                padding: 3rem 2rem;
+                text-align: center;
+                border: 1px solid #eef2f8;
+                color: #475569;
+            }
+
+            /* адаптивность */
+            @media (max-width: 850px) {
+                body {
+                    padding: 1rem;
+                }
+                .grid-row {
+                    grid-template-columns: 0.6fr 1fr 0.9fr 1fr 1fr;
+                }
+                .cell {
+                    padding: 0.7rem 0.6rem;
+                    font-size: 0.75rem;
+                }
+                .extended-row {
+                    grid-template-columns: 1fr;
+                }
+                .extended-cell:first-child {
+                    border-right: none;
+                    border-bottom: 1px solid #f0f4f9;
+                }
+            }
+
+            @media (max-width: 650px) {
+                .grid-row {
+                    grid-template-columns: 0.7fr 1.1fr 0.8fr 1fr 1fr;
+                }
+            }
+
+            .mono {
+                font-family: monospace;
+            }
+
+            .text-muted {
+                color: #64748b;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="log-container">
+            <div class="log-header">
+                <div class="title-section">
+                    <h1>📋 Incident log</h1>
+                    <p>structured security events · clear and readable</p>
+                </div>
+                <div class="counter">{{ len . }} records</div>
+            </div>
+
+            <div class="records">
+                <!-- заголовки колонок -->
+                <div class="grid-row header-row">
+                    <div class="cell">Incident ID</div>
+                    <div class="cell">Target name</div>
+                    <div class="cell">Type</div>
+                    <div class="cell">Host</div>
+                    <div class="cell">Creation time</div>
+                </div>
+
+                {{ range $i, $incident := .}}
+                <div class="incident-wrapper">
+                    <!-- основные поля -->
+                    <div class="grid-row">
+                        <div class="cell">{{ .IncidentID }}</div>
+                        <div class="cell">{{ .TargetName }}</div>
+                        <div class="cell">{{ .TargetType }}</div>
+                        <div class="cell">{{ .Host }}</div>
+                        <div class="cell">{{ .IncidentCreationTime }}</div>
+                    </div>
+                    <!-- дополнительные поля: message и file -->
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">{{ .Message }}</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">{{ .File }}</span>
+                        </div>
+                    </div>
+                </div>
+                {{ else }}
+                <div class="empty-state">
+                    <span style="font-size: 2rem">🔍</span>
+                    <p style="margin-top: 0.75rem">No incidents recorded</p>
+                    <p class="text-muted" style="font-size: 0.8rem">
+                        System is clear
+                    </p>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </body>
+</html>

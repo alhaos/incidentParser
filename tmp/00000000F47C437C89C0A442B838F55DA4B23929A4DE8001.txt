@@ -1,0 +1,19 @@
+Host=KHM-UNG-DB21N1.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.CDNG21.PR.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.CDNG21.PR.YNG.RN&targetType=oracle_database>  
+Incident creation time=Mar 17, 2026 12:47:19 AM YEKT 
+Last updated time=Mar 17, 2026 1:52:37 AM YEKT 
+Message=The current status of the target is Down <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=C0DCD828112943749E4D9E28D997F987>  
+Severity=Fatal 
+Incident ID=96831 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories=Availability 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Root Cause Analysis Status=Neither Cause Nor Symptom 
+This incident has an event that is neither a cause nor a symptom. 

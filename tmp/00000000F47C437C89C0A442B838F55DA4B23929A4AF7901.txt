@@ -1,0 +1,19 @@
+Host=KHM-UNG-MSR01N2.rosneft.ru 
+Target type=Database Instance 
+Target name=MSN_TEST.SMD <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=MSN_TEST.SMD&targetType=oracle_database>  
+Incident creation time=Feb 13, 2026 11:00:07 AM YEKT 
+Last updated time=Feb 13, 2026 11:00:07 AM YEKT 
+Message=The value of Apply errors is 1 <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=BC7A4B079F764A409D598FB375097770>  
+Severity=Critical 
+Incident ID=94463 
+Event count=1 
+Incident Status=New 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
+Update Details:
+Incident created by rule (Name = DBA_RULESET_TARGETS, ME_RULE; Owner = GORBACHEVEV). 

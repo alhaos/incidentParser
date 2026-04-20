@@ -1,0 +1,17 @@
+Host=KHM-UNG-PRB01N1.rosneft.ru 
+Target type=Database Instance 
+Target name=OIS.PR.YNG.RN <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=TARGET_HOMEPAGE&targetName=OIS.PR.YNG.RN&targetType=oracle_database>  
+Incident creation time=Mar 5, 2026 5:55:44 AM YEKT 
+Last updated time=Mar 5, 2026 6:55:45 AM YEKT 
+Message=Alert for Snapshot not refresh is cleared <https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailIncident&issueID=D93270FEF910422997B371BFC6B420DB>  
+Severity=Clear 
+Incident ID=96167 
+Event count=1 
+Incident Status=Closed 
+Escalated=No 
+Priority=None 
+Incident owner= 
+Incident Acknowledged By Owner=No 
+Categories= 
+Rule Name=DBA_RULESET_TARGETS,INCIDENT_NOTIFICATION_RULE 
+Rule Owner=GORBACHEVEV 
