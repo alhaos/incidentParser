@@ -10,6 +10,7 @@ import (
 type Config struct {
 	TemplatePath   string `yaml:"templatePath"`
 	ReportFilename string `yaml:"reportFilename"`
+	IncidentsPath  string `yaml:"incidentsPath"`
 }
 
 // NewConfig create new config

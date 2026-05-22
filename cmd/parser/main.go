@@ -11,6 +11,7 @@ import (
 	"parser/internal/reporter"
 	"path/filepath"
 	"strings"
+	"sync"
 )
 
 const incidentsPath = `data/Incidents`
@@ -42,7 +43,7 @@ func main() {
 	slog.SetDefault(l)
 
 	// Get data files list
-	files, err := os.ReadDir(incidentsPath)
+	files, err := os.ReadDir(conf.IncidentsPath)
 
 	if err != nil {
 		panic(err)
@@ -56,6 +57,11 @@ func main() {
 
 	var importantIncidents []model.Incident
 	var counter int
+
+	var wg sync.WaitGroup
+
+	sem := make(chan struct{}, 16)
+	var mu sync.Mutex
 
 	// Loop files
 	for _, entry := range files {
@@ -76,20 +82,33 @@ func main() {
 			continue
 		}
 
-		incident, err := p.Parse(filepath.Join(incidentsPath, entry.Name()))
-		if err != nil {
-			panic(err)
+		wg.Add(1)
+		sem <- struct{}{}
 
-		}
+		go func() {
+			defer func() { <-sem }()
+			defer wg.Done()
 
-		if i.ShouldExclude(incident) {
-			slog.Debug("found: ", "name", name, "skip reason", "unimportant")
-			continue
-		}
+			incident, err := p.Parse(filepath.Join(incidentsPath, entry.Name()))
+			if err != nil {
+				panic(err)
 
-		slog.Info("found: ", "name", name)
-		importantIncidents = append(importantIncidents, incident)
+			}
+
+			if i.ShouldExclude(incident) {
+				slog.Debug("found: ", "name", name, "skip reason", "unimportant")
+				return
+			}
+
+			slog.Info("found: ", "name", name)
+			mu.Lock()
+			importantIncidents = append(importantIncidents, incident)
+			mu.Unlock()
+		}()
+
 	}
+
+	wg.Wait()
 
 	slog.Info("data files found", "count", counter)
 	slog.Info("important incidents found", "count", len(importantIncidents))
