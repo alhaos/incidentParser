@@ -27,7 +27,7 @@ func Test(t *testing.T) {
 			if err != nil {
 				t.Error(err)
 			}
-			i := Default()
+			i := NewDefault()
 
 			result := i.ShouldExclude(
 				inc,

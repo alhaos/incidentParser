@@ -53,7 +53,7 @@ func main() {
 	p := incidentParser.NewParser()
 
 	// Init interpreter
-	i := interpreter.Default()
+	i := interpreter.NewDefault()
 
 	var importantIncidents []model.Incident
 	var counter int

@@ -2,15 +2,17 @@ package config
 
 import (
 	"os"
+	"parser/internal/model"
 
 	"go.yaml.in/yaml/v4"
 )
 
 // Config general app config
 type Config struct {
-	TemplatePath   string `yaml:"templatePath"`
-	ReportFilename string `yaml:"reportFilename"`
-	IncidentsPath  string `yaml:"incidentsPath"`
+	TemplatePath   string        `yaml:"templatePath"`
+	ReportFilename string        `yaml:"reportFilename"`
+	IncidentsPath  string        `yaml:"incidentsPath"`
+	RuleSet        model.RuleSet `yaml:"ruleSet"`
 }
 
 // NewConfig create new config
