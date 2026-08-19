@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log/slog"
 	"os"
 	"parser/internal/config"
@@ -14,15 +15,14 @@ import (
 	"sync"
 )
 
-const incidentsPath = `data/Incidents`
-const templatePath = `template/template.html`
-const defaultConfigPath = `config/config.yml`
 const fileExtension = ".txt"
 
 func main() {
 
 	// Parse config filename flag
-	configFilenamePointer := flag.String("config", defaultConfigPath, "-config config/config.yml")
+	configFilenamePointer := flag.String("config", "config.yml", "-config config.yml")
+	fmt.Println(os.Getwd())
+
 	flag.Parse()
 	configFilename := *configFilenamePointer
 
@@ -53,7 +53,7 @@ func main() {
 	p := incidentParser.NewParser()
 
 	// Init interpreter
-	i := interpreter.NewDefault()
+	i := interpreter.NewDefault(conf.RuleSet)
 
 	var importantIncidents []model.Incident
 	var counter int
@@ -89,7 +89,7 @@ func main() {
 			defer func() { <-sem }()
 			defer wg.Done()
 
-			incident, err := p.Parse(filepath.Join(incidentsPath, entry.Name()))
+			incident, err := p.Parse(filepath.Join(conf.IncidentsPath, entry.Name()))
 			if err != nil {
 				panic(err)
 

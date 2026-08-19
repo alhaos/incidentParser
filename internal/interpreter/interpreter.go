@@ -84,7 +84,7 @@ func (i *Interpreter) AddMessageMatchRule(pattern string, name string) {
 	)
 }
 
-func NewDefault() *Interpreter {
+func NewDefault(ruleSet model.RuleSet) *Interpreter {
 
 	i := Interpreter{}
 
@@ -100,29 +100,7 @@ func NewDefault() *Interpreter {
 		},
 	)
 
-	rules := []model.Rule{
-		{Pattern: "Total db time", Name: "blocking session"},
-		{Pattern: "Tablespace.*is.*full", Name: "Tablespace is full"},
-		{Pattern: "Users Lock Sessions", Name: "Users Lock Sessions"},
-		{Pattern: "Agent Unreachable", Name: "Agent Unreachable"},
-		{Pattern: "DBA_2", Name: "DBA_2"},
-		{Pattern: "Hang replication session", Name: "Hang replication session"},
-		{Pattern: "Stats Stale", Name: "Stats Stale"},
-		{Pattern: "CDS Loader", Name: "CDS Loader"},
-		{Pattern: "Snapshot not refresh", Name: "Snapshot not refresh"},
-		{Pattern: "Hang jobs", Name: "Hang jobs"},
-		{Pattern: "Capture need archivelog older than", Name: "Capture need archivelog older than"},
-		{Pattern: "TM4_NO_PARSE_DATA_AT_LAST_ONE_SERVER", Name: "TM4_NO_PARSE_DATA_AT_LAST_ONE_SERVER"},
-		{Pattern: "The value of DDL Locks is", Name: "The value of DDL Locks is"},
-		{Pattern: "Agent is unable to communicate", Name: "Agent is unable to communicate"},
-		{Pattern: "Invalid Object Count in", Name: "Invalid Object Count in"},
-		{Pattern: "PREDIX Loader", Name: "PREDIX Loader"},
-		{Pattern: "The value of Apply errors is", Name: "The value of Apply errors is"},
-		{Pattern: "STREAMS error queue for apply process", Name: "STREAMS error queue for apply process"},
-		{Pattern: "Standby database NOT_APPLIED logs", Name: "Standby database NOT_APPLIED logs"},
-	}
-
-	for _, r := range rules {
+	for _, r := range ruleSet.MessageMatchRules {
 		i.AddMessageMatchRule(r.Pattern, r.Name)
 	}
 

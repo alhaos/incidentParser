@@ -1,0 +1,2457 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Incident log | Clean viewer</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: #f1f5f9;
+                font-family:
+                    "Inter",
+                    -apple-system,
+                    "Segoe UI",
+                    "Roboto",
+                    system-ui,
+                    sans-serif;
+                padding: 2rem 1.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+             
+            .log-container {
+                max-width: 1400px;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+             
+            .log-header {
+                margin-bottom: 1.75rem;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid #e2e8f0;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            .title-section h1 {
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: #0f172a;
+                letter-spacing: -0.3px;
+            }
+
+            .title-section p {
+                font-size: 0.8rem;
+                color: #475569;
+                margin-top: 0.2rem;
+            }
+
+            .counter {
+                font-size: 0.75rem;
+                font-weight: 500;
+                background: #eef2ff;
+                color: #1e40af;
+                padding: 0.3rem 0.8rem;
+                border-radius: 20px;
+                font-family: monospace;
+            }
+
+             
+            .grid-row {
+                display: grid;
+                grid-template-columns: 0.45fr 1.2fr 0.9fr 1.1fr 1.1fr;
+                background: #ffffff;
+                border-radius: 0;
+                margin-bottom: 0;
+                transition: background 0.15s ease;
+            }
+
+             
+            .cell {
+                padding: 0.85rem 1rem;
+                font-size: 0.85rem;
+                line-height: 1.4;
+                color: #1e293b;
+                border-bottom: 1px solid #e9edf2;
+                border-right: 1px solid #eff2f6;
+                word-break: break-word;
+            }
+
+            .grid-row .cell:last-child {
+                border-right: none;
+            }
+
+             
+            .header-row {
+                background: #f8fafc;
+                border-bottom: 2px solid #cbd5e1;
+                border-radius: 0;
+            }
+
+            .header-row .cell {
+                font-weight: 600;
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                color: #334155;
+                background: #f8fafc;
+                border-bottom: 1px solid #e2e8f0;
+                padding: 0.7rem 1rem;
+            }
+
+             
+            .grid-row .cell:first-child {
+                font-family: "SF Mono", "Fira Code", monospace;
+                font-weight: 500;
+                color: #0c4a6e;
+                background-color: #fafcff;
+            }
+
+             
+            .extended-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                background: #fefefe;
+                border-top: 1px solid #ecf3f9;
+                margin-top: -1px;
+            }
+
+            .extended-cell {
+                padding: 0.7rem 1rem;
+                font-size: 0.8rem;
+                color: #334155;
+                border-bottom: 1px solid #f0f4f9;
+                line-height: 1.45;
+                display: flex;
+                gap: 0.6rem;
+            }
+
+            .extended-cell:first-child {
+                border-right: 1px solid #eff3f8;
+            }
+
+            .label-icon {
+                font-weight: 400;
+                opacity: 0.6;
+                font-size: 0.85rem;
+                min-width: 24px;
+            }
+
+            .message-text {
+                color: #2c3e50;
+            }
+
+            .file-text {
+                font-family: "SF Mono", "Fira Code", monospace;
+                font-size: 0.75rem;
+                color: #4b5563;
+            }
+
+             
+            .records {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #eef2f8;
+                background: white;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            }
+
+             
+            .incident-wrapper:hover .grid-row {
+                background-color: #fafdff;
+            }
+
+            .incident-wrapper:hover .extended-row {
+                background-color: #fdfdfd;
+            }
+
+             
+            .incident-wrapper:not(:last-child) .grid-row .cell {
+                border-bottom-color: #edf2f7;
+            }
+
+             
+            .empty-state {
+                background: white;
+                border-radius: 20px;
+                padding: 3rem 2rem;
+                text-align: center;
+                border: 1px solid #eef2f8;
+                color: #475569;
+            }
+
+             
+            @media (max-width: 850px) {
+                body {
+                    padding: 1rem;
+                }
+                .grid-row {
+                    grid-template-columns: 0.6fr 1fr 0.9fr 1fr 1fr;
+                }
+                .cell {
+                    padding: 0.7rem 0.6rem;
+                    font-size: 0.75rem;
+                }
+                .extended-row {
+                    grid-template-columns: 1fr;
+                }
+                .extended-cell:first-child {
+                    border-right: none;
+                    border-bottom: 1px solid #f0f4f9;
+                }
+            }
+
+            @media (max-width: 650px) {
+                .grid-row {
+                    grid-template-columns: 0.7fr 1.1fr 0.8fr 1fr 1fr;
+                }
+            }
+
+            .mono {
+                font-family: monospace;
+            }
+
+            .text-muted {
+                color: #64748b;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="log-container">
+            <div class="log-header">
+                <div class="title-section">
+                    <h1>📋 Incident log</h1>
+                    <p>structured security events · clear and readable</p>
+                </div>
+                <div class="counter">100 records</div>
+            </div>
+
+            <div class="records">
+                
+                <div class="grid-row header-row">
+                    <div class="cell">Incident ID</div>
+                    <div class="cell">Target name</div>
+                    <div class="cell">Type</div>
+                    <div class="cell">Host</div>
+                    <div class="cell">Creation time</div>
+                </div>
+
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG11.PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB11N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23324, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng11\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=C4EF5F8A3DAC4A89A71CC1E6E85AF9E0&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904D0AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">MSN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-MSR01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (03113, 03113, 12012, 03113, 06512, 06512) logged in D:\oracle\product\diag\rdbms\msn_smd\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=03BFDCF38AB44D47BC11A9ED651AA963&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904CDAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 12592, 02063, 02063, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=5C270897BB7542768A6204FABDE78D5E&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904DBAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG21.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB21N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (03113, 03113, 12012, 03113, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng21\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=44E90032BFF2435C95D4B77E0653797E&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904D3AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 03135, 02063, 03135, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=FC3F2EA19B994829B871572158824D5D&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924D6AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG25.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB25N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (20,000) logged in D:\oracle\product\diag\rdbms\cdng25\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=20EEDD7C72A14E85AF178B275709A369&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924D7AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG21.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB21N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng21\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=B34428DC83764A42B06CCABCF344F733&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904D4AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG3.UN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB03N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng3\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=65DD22B334134A1AA92FED5575E653FD&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904D8AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">RNKIN.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA01.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23402, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\rnkin\rnkin\trace\alert_RNKIN.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=D7FDA1F81BFB4643AB8751E05E9AAF7A&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904E9AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG21.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB21N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12170, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng21\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=FA6FE9D2DEE7413F997C466B41B361C7&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924D3AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=619BE761AD364FAFAA281C7721082A5A&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924E3AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG21.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB21N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (02050, 03135, 02063) logged in D:\oracle\product\diag\rdbms\cdng21\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=90AD69927D924AC99C5536ADEB58B100&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924D4AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">MAXIMO </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA03.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (609) logged in D:\ORACLE\diag\rdbms\maximo\maximo\trace\alert_MAXIMO.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=786742D02EC441BFA69BA438AA0F096B&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924E6AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG20.PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB20N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (28546, 06512, 06512, 06512, 06512, 28546, 06512, 06512, 06512, 06512, 12012, 28546, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\PRODUCT\diag\rdbms\cdng20\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=B48FFBD3C7A343399DC2D9227DB4CC27&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924E8AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">RNKIN.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA01.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23402, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\rnkin\rnkin\trace\alert_RNKIN.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=4F058EC6120E46E58656C6F951659C06&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944CDAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-PRB01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (03113, 03113, 12012, 03113, 06512, 06512) logged in D:\ORACLE\PRODUCT\diag\rdbms\pr\pr\trace\alert_PR.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=4F40103BFD31414AA71488EF4D7D1A1D&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904D9AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG3_TEST.UN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB03N2.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng3_test_un_smd\oistest\trace\alert_OISTEST.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=B1A2FBEFD07E41EE95E722608BDAA2C7&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944D0AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG20_TEST.PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB20N2.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (28546, 06512, 06512, 06512, 06512, 28546, 06512, 06512, 06512, 06512, 12012, 28546, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\PRODUCT\diag\rdbms\oistest\oistest\trace\alert_OISTEST.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=DBA318180B604626B3021482BE7261B6&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904DEAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG21.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB21N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12170, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng21\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=D35E000E077D4429B144EDA9669EF635&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944D4AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG3_TEST.UN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB03N2.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (03113, 03113, 12012, 03113, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng3_test_un_smd\oistest\trace\alert_OISTEST.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=449302BF408D4F48A7ECB3B65B150201&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944D8AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG22.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB22N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng22\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=E5D6346EDCFC477CA6245D71DD35F945&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944D9AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 03135, 02063, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=559D12F9B67545DBA5D6A4DC25DFE252&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944DEAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG9.PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB09N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (28546, 06512, 06512, 06512, 06512, 28546, 06512, 06512, 06512, 06512, 12012, 28546, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng9\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=263D84F8805B4D4F921A1B1CAF3D43CD&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904EDAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-PR01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (28546, 06512, 06512, 06512, 06512, 28546, 06512, 06512, 06512, 06512, 12012, 28546, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\pn\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=DBFADA24DE8A4920A656B94C1DEBED66&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924DBAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=5FDA42CCA6AD4FDC84AEB7D90E4E1386&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944E2AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-PR01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\pn\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=D7B164C1F1F14CF89405225F9FD54DE2&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924D0AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-PRB01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\PRODUCT\diag\rdbms\pr\pr\trace\alert_PR.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=FF4AA6FDC33C43B59E9E7BC7D00516ED&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924D9AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">RNKIN.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA01.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23402, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\rnkin\rnkin\trace\alert_RNKIN.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=AD62773EA5D542BB96C6977A2B171BA0&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904E4AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=DFAB455A98FC44DA8D6CBDC9EB99842D&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944E8AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-PR01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (03150, 03113, 12012, 03150, 03113, 06512, 06512) logged in D:\oracle\product\diag\rdbms\pn\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=0E957280D7C54353A667E695C236968B&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392964CDAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 03135, 02063, 03135, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=437ADA5CDB774C9482ECEE6D03635989&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924CDAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 03135, 02063, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=EB93DEC58F814D1C9CE21D00013A3271&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392904E2AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG5.MN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB05N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\PRODUCT\diag\rdbms\cdng5\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=55AE29A1D5D540A7A7FD5BA96118CD43&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924EBAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=B09E5702A54B4E7A9E76063C16CA334A&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944ECAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG21.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB21N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12170, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng21\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=3FCA3CD127D54837BAD456E775078873&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944D3AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">UN_TEST.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-YR01N2.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (03150, 03113, 12012, 03150, 03113, 06512, 06512) logged in D:\oracle\product\diag\rdbms\oistest\oistest\trace\alert_OISTEST.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=A1185D549C464FE0A0854D0715A5C73B&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392964D8AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG22.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB22N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12170, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng22\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=B233D54BBCEF473593CEC34231A10BE3&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392964D9AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS_STB.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora11.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (00235, 00235) logged in D:\oracle\product\diag\rdbms\ois_centr_standby\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=58D319FB5A0142638DF030DAB7016A33&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392964DDAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=DC7E734D52434560A9C9FC85745878E5&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392964DFAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=1845554F5C184EA49D505E06F3BD09A7&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392964E4AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-PR01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\pn\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=4C00832D64DF469AB74E351404979208&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984CDAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG1.UN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12008, 03135, 02063, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\PRODUCT\diag\rdbms\cdng1\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=A1E9ADCCDCEC459A80BA843D62EBBD69&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944E7AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-PR01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (28546, 06512, 06512, 06512, 06512, 28546, 06512, 06512, 06512, 06512, 12012, 28546, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\pn\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=DE5A9A42B50146FD967D3B3F8F4F09B1&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944D6AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">RNKIN.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA01.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23402, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\rnkin\rnkin\trace\alert_RNKIN.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=402BF34F4FCE4DB386F12F97C6295ED1&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944E1AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 03135, 02063, 03135, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=B647764103854B70AA05F391D5AD5C0F&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984D4AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=1FF2333ADB0C4F0280B62BCD1078F85E&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944E0AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">RNKIN.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA01.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23402, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\rnkin\rnkin\trace\alert_RNKIN.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=78935AC9A2F749F99EFD50ED7C24A49A&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924E2AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=10137CC31FF74D4F857D228312C0776F&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944E6AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG23.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB23N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12170, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng23\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=AAC3AB3DBA254D8E80B8CF6FD637941D&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392964D0AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG11.PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB11N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng11\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=4DAB3EE829FF42C780D6C9CB9F237A44&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984CFAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">MAXIMO </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA03.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (609) logged in D:\ORACLE\diag\rdbms\maximo\maximo\trace\alert_MAXIMO.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=258B149402264A7CBC1F99D2C6752243&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392924DEAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG22.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB22N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (03150, 03113, 12012, 03150, 03113, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng22\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=90A0F495D6AA4478982D53D0C6A50DB3&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984D9AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG11.PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB11N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (03150, 03113, 12012, 03150, 03113, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng11\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=D71F69C4B4EF44298A21F929FDBC38C6&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A4CFAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">RNKIN.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA01.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23402, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\rnkin\rnkin\trace\alert_RNKIN.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=4F3D46ADC8FA4B949D948F3E359CAEC0&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A4D4AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS_STB.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora11.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (00235, 00235) logged in D:\oracle\product\diag\rdbms\ois_centr_standby\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=5F29BE5F2B70442EB27793453C19E2F5&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A4DBAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG21.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB21N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12170, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng21\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=71B090414D9D450EB3CC78F27D83A13B&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392964D4AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">RNKIN.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA01.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23402, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\rnkin\rnkin\trace\alert_RNKIN.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=946D30BDFF574D18BD54769E30924A51&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984E0AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=98DA3FBAECD7482096B38FD03B8E530F&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392944EBAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">UN_TEST.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-YR01N2.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_CDNG3,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=9FF83806D18444C8B721B747DDD05C23&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984D6AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG21.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB21N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12170, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng21\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=0C9DB2856F4F4188BC445817825CF438&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392964D3AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 03135, 02063, 03135, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=6C93AD8153954CF2B7DCC09C599504A3&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392964D6AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">UN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-YR01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\un_smd\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=E774E1C16F4A41D7B3141303FB4CA5A4&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984D8AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-PRB01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\PRODUCT\diag\rdbms\pr\pr\trace\alert_PR.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=8AFAF9F31BE744F0A3C67B94DFB315F1&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984D3AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG22.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB22N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (03113, 03113, 12012, 03113, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng22\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=71CB38C8B5BD45BAB8891F21E6B8BEA8&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A4D9AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=B134709A67C64CACA324BC91E4229259&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A4DCAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=9096A4A17B76409298B09646AB1FEA1A&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A4E2AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 03135, 02063, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=0E80B21C850F4D6BB4FA9841A2747DA4&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984E6AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">RNKIN.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA01.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23402, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\rnkin\rnkin\trace\alert_RNKIN.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=44620EDFB4F8488F81457E338FA64676&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A4DFAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=D542C3BDA1A2463FAAC50FD7431C9554&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4D7AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 03135, 02063, 03135, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=5481A6B3D22D4C56942113B63F6399D8&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4DDAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=EEAD92E91D154B7E801F1CADDF6E8356&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4DFAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">MAXIMO </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA03.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (609) logged in D:\ORACLE\diag\rdbms\maximo\maximo\trace\alert_MAXIMO.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=0B39CE1DBE7A47C39361EDBB95026D4C&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4E1AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=9B94BDA13CB946F7AA38D4E93BCC2B2F&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4E3AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=BCC98614D633455B83CBDA605C8B9A61&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4E9AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=010EE0570B7D4F54A5EB24E4EF1AF8AA&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A4E7AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=5C9871E5E264457AA90DE51ADAB20CAC&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A4E1AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 03150, 02063, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=AC068AACEFE6427D98DEFC116AA51060&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A4EBAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG11.PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB11N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23324, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng11\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=E5C16BFF239E4189B04CC3857F4DBB33&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4CFAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">RNKIN.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA01.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23402, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\rnkin\rnkin\trace\alert_RNKIN.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=9B4F411867DE4F37A6122CD8FCE6C29F&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929A4E6AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-PRB01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\PRODUCT\diag\rdbms\pr\pr\trace\alert_PR.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=A1EE6209A9EB4D539A68FD5359B4E355&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4D0AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">KHM-UNG-DB21N2.rosneft.ru </div>
+                        <div class="cell">Host</div>
+                        <div class="cell">KHM-UNG-DB21N2.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Filesystem F:\\ has 9.989% available space, fallen below warning (10) or critical (5) threshold. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=F9707E29A00D4B6ABCD2698D8B4092DF&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984DBAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">MAXIMO </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA03.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (1,013) logged in D:\ORACLE\diag\rdbms\maximo\maximo\trace\alert_MAXIMO.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=D35A4897672842CD89BD80EE66AF8392&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984E3AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">UN_TEST.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-YR01N2.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\oistest\oistest\trace\alert_OISTEST.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=A2D406C7ADB94175BE321CC43E42E0DE&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4D6AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">EPOS3 </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA02.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (609) logged in D:\ORACLE\PRODUCT\diag\rdbms\epos3\epos3\trace\alert_EPOS3.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=B0DF6890EF904644BA94A3024DF502F6&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4D4AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 03135, 02063, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=8C7D00D9D6824FFC81EFB86D8F4069C2&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4D8AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12048, 12592, 02063, 02063, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=BB071E60FDBC44909B2AE443F6861DCB&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4E4AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">Result has repeating key value : APPLY_WELLOP_FROM_PR,apply &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=990E7D1EBE09443380F0FB244EE7A094&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4E5AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">TIS </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA06.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23324, 02063, 06512, 06512, 06512, 06512, 06512) logged in D:\ORACLE\diag\rdbms\tis\tis\trace\alert_TIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=DABA7712B82B47F68EAC665E3AF294D4&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4E8AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">CDNG11.PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB11N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng11\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=88EF7FB7B6BA4D4BA9EF2C1155316C0A&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4CFAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">RNKIN.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA01.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23402, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\rnkin\rnkin\trace\alert_RNKIN.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=4BB70A6B3204489B96F460F2F9555CF4&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929C4EBAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12170, 06512, 06512) logged in D:\oracle\product\diag\rdbms\ois_centr_primary\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=7BBF92E6CA8F4F91BC4160A05BC160FA&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4CEAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.CDNG21.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-DB21N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12170, 06512, 06512, 06512, 06512, 12170, 06512, 06512, 06512, 06512, 12012, 12170, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\cdng21\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=96C3D0F82581412086D835C01190238A&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4D2AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.PR.YNG.RN </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-PRB01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (03113, 03113, 12012, 03113, 06512, 06512) logged in D:\ORACLE\PRODUCT\diag\rdbms\pr\pr\trace\alert_PR.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=F27E7A4A4A824B719E7190322C48A2A4&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4D0AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12170, 06512, 06512) logged in D:\oracle\product\diag\rdbms\ois_centr_primary\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=4B697EBC793747E2A508E35CFB8752FF&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4D1AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12170, 06512, 06512) logged in D:\oracle\product\diag\rdbms\ois_centr_primary\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=3C0B8632C7354EFCBEA1358FDB95DC46&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4D3AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">OIS.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">khm-ung-ora10.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 03150, 02055, 02063, 06512, 06512) logged in D:\oracle\product\diag\rdbms\ois_centr_primary\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=A68686AA0BA44A108F3392766A0AC37E&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4D7AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">UN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-YR01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 12008, 03150, 02063, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\un_smd\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=3CB44719714F479092CB30EF49B0AC15&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4DDAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">RNKIN.YNG.RN.RU </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA01.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (12012, 23402, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\rnkin\rnkin\trace\alert_RNKIN.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=2C0807ACE0BE46F6B3A2DC0718762EA5&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4DFAF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">PN.SMD </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-PR01N1.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (28546, 06512, 06512, 06512, 06512, 28546, 06512, 06512, 06512, 06512, 12012, 28546, 06512, 06512, 06512, 06512, 06512, 06512) logged in D:\oracle\product\diag\rdbms\pn\ois\trace\alert_OIS.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=165B6092EDD54170ACB71D8AA7D5F85E&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B2392984E2AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="incident-wrapper">
+                    
+                    <div class="grid-row">
+                        <div class="cell">0</div>
+                        <div class="cell">MAXIMO </div>
+                        <div class="cell">Database Instance</div>
+                        <div class="cell">KHM-UNG-ORA03.rosneft.ru</div>
+                        <div class="cell">0001-01-01 00:00:00 &#43;0000 UTC</div>
+                    </div>
+                    
+                    <div class="extended-row">
+                        <div class="extended-cell">
+                            <span class="label-icon">📄</span>
+                            <span class="message-text">ORA-error stack (609) logged in D:\ORACLE\diag\rdbms\maximo\maximo\trace\alert_MAXIMO.log. &lt;https://oemcc-yng.rosneft.ru:7799/em/redirect?pageType=sdk-core-event-console-detailEvent&amp;issueID=4E9B31E2CAA84DDB94CCC718E5A1221B&gt;</span>
+                        </div>
+                        <div class="extended-cell">
+                            <span class="label-icon">📎</span>
+                            <span class="file-text">C:\tmp\001\data\Incidents\00000000F47C437C89C0A442B838F55DA4B23929E4E9AF01.txt</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,3 +1,44 @@
-templatePath: template/template.html
+templatePath: C:\tmp\001\template\template.html
 reportFilename: report.html
-incidentsPath: data/Incidents
+incidentsPath: C:\tmp\001\data\Incidents 
+
+ruleSet:
+  messageMatchRules:
+    - name: "blocking session"
+      pattern: "Total db time"
+    - name: "Tablespace is full"
+      pattern: "Tablespace.*is.*full"
+    - name: "Users Lock Sessions"
+      pattern: "Users Lock Sessions"
+    - name: "Agent Unreachable"
+      pattern: "Agent Unreachable"
+    - name: "DBA_2"
+      pattern: "DBA_2"
+    - name: "Hang replication session"
+      pattern: "Hang replication session"
+    - name: "Stats Stale"
+      pattern: "Stats Stale"
+    - name: "CDS Loader"
+      pattern: "CDS Loader"
+    - name: "Snapshot not refresh"
+      pattern: "Snapshot not refresh"
+    - name: "Hang jobs"
+      pattern: "Hang jobs"
+    - name: "Capture need archivelog older than"
+      pattern: "Capture need archivelog older than"
+    - name: "TM4_NO_PARSE_DATA_AT_LAST_ONE_SERVER"
+      pattern: "TM4_NO_PARSE_DATA_AT_LAST_ONE_SERVER"
+    - name: "The value of DDL Locks is"
+      pattern: "The value of DDL Locks is"
+    - name: "Agent is unable to communicate"
+      pattern: "Agent is unable to communicate"
+    - name: "Invalid Object Count in"
+      pattern: "Invalid Object Count in"
+    - name: "PREDIX Loader"
+      pattern: "PREDIX Loader"
+    - name: "The value of Apply errors is"
+      pattern: "The value of Apply errors is"
+    - name: "STREAMS error queue for apply process"
+      pattern: "STREAMS error queue for apply process"
+    - name: "Standby database NOT_APPLIED logs"
+      pattern: "Standby database NOT_APPLIED logs"

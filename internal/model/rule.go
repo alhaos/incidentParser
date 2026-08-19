@@ -6,7 +6,7 @@ type Rule struct {
 }
 
 type MessageMatchRule struct {
-	Rule
+	Rule `yaml:",inline"`
 }
 
 type RuleSet struct {
